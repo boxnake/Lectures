@@ -3,7 +3,6 @@ import math
 blocks = []
 prime_numbers = []
 hash_values = []
-initial_hash_values = []
 constants_k = []
 BLOCK_SIZE = 64
 
@@ -55,7 +54,6 @@ def initialize_initial_hash_value():
     for prime in prime_numbers:
         square_root = prime**(1./2.)
         hash_values.append(get_fraction_part_bytes(square_root))
-        initial_hash_values.append(get_fraction_part_bytes(square_root))
 
 def initialize_constants():
     get_prime_numbers(64)
@@ -181,11 +179,6 @@ def compute_intermediate_hash_value(a,b,c,d,e,f,g,h):
     hash_values[6] = mod_32_addition(g, hash_values[6])
     hash_values[7] = mod_32_addition(h, hash_values[7])
         
-def final_adding():
-    global hash_values, initial_hash_values
-    for i in range(len(hash_values)):
-        hash_values[i] = mod_32_addition(initial_hash_values[i], hash_values[i])
-    
 def hash_computation():
     global blocks
     for i in range(len(blocks)):
@@ -196,7 +189,6 @@ def hash_computation():
 
 
 def print_result():
-    result = bytes()
     print('result :', end='')
     for value in hash_values:
         print(' {0}'.format(value.hex()), end='')
