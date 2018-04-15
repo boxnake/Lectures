@@ -66,8 +66,3 @@ test_epokes('AND')
 print('='*40)
 initialize_weights(0.1, -0.1)
 test_epokes('OR')
-
-            
-    
-
-    
