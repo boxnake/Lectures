@@ -2,7 +2,6 @@
 #include<string>
 #include<fstream>
 #include<cstdlib>
-#include<ctime>
 #include<cmath>
 #include<random>
 
@@ -264,7 +263,6 @@ void initializeErrorGradientK(){
 }
 
 int main(int argc, char** argv){
-    srand(time(NULL));
     inputParameters();
     initializeThreshold();
     initializeY();
@@ -277,6 +275,7 @@ int main(int argc, char** argv){
     while(true){
         inputFile.open("MNIST.txt");
         learningPhase();
+        printResult(epoch, "learning");
         testingPhase();
         testSuccessRate = printResult(epoch, "testing");
         if(testSuccessRate > 99.8)
