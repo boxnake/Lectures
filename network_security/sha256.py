@@ -27,6 +27,7 @@ def padding_msg(msg):
 
 def slice_into_blocks(input_data):
     global blocks
+    blocks = []
     block_length = len(input_data)/64
     for i in range(int(block_length)):
         blocks.append(input_data[0+(i*64):64+(i*64)])
@@ -50,13 +51,17 @@ def get_fraction_part_bytes(real_num):
     
 
 def initialize_initial_hash_value():
+    global hash_values
     get_prime_numbers(8)
+    hash_values = []
     for prime in prime_numbers:
         square_root = prime**(1./2.)
         hash_values.append(get_fraction_part_bytes(square_root))
 
 def initialize_constants():
+    global constants_k
     get_prime_numbers(64)
+    constants_k = []
     for prime in prime_numbers:
         cube_root = prime**(1./3.)
         constants_k.append(get_fraction_part_bytes(cube_root))
@@ -194,8 +199,27 @@ def print_result():
         print(' {0}'.format(value.hex()), end='')
     print()
 
-    
+def get_hash_digest_from_file(file_name):
+    file_read(file_name)
+    hash_computation()
+    ret_bytes = bytes()
+    for h in hash_values:
+        ret_bytes += h
+    return ret_bytes
 
-file_read('sample.txt')
-hash_computation()
-print_result()
+def get_hash_digest_from_bytes(input_bytes):
+    padded_msg = padding_msg(input_bytes)
+    slice_into_blocks(padded_msg)
+    initialize_initial_hash_value()
+    initialize_constants()
+    hash_computation()
+    ret_bytes = bytes()
+    for h in hash_values:
+        ret_bytes += h
+    return ret_bytes
+
+
+if __name__ == "__main__":
+    file_read('sample.txt')
+    hash_computation()
+    print_result()
