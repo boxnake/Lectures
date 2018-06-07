@@ -1,0 +1,5 @@
+zero length: 4, try count: 63, elapsed time: 12.105994701385498
+zero length: 8, try count: 127, elapsed time: 25.475739240646362
+zero length: 12, try count: 3651, elapsed time: 702.8968813419342
+zero length: 16, try count: 84255, elapsed time: 17871.21166419983
+zero length: 20, try count: 225693, elapsed time: 43895.88282799721
